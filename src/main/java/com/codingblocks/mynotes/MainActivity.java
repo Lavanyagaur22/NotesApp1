@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
 
-       arrayList= loadArray(this);
+        arrayList = loadArray(this);
 
 
 //        Map<String,?>allEntries=sharedPreferences.getAll();
@@ -82,9 +82,12 @@ public class MainActivity extends AppCompatActivity {
         mEdit1.putInt("Status_size", arrayList.size());
 
         for (int i = 0; i < arrayList.size(); i++) {
-            //  mEdit1.remove("Status_" + i);
-            mEdit1.putString("Note_Message" , String.valueOf(arrayList.get(i).getNote()));
-            mEdit1.putString("Note_Time" , String.valueOf(arrayList.get(i).getTime()));
+
+            mEdit1.putString("Note_Message"+i, String.valueOf(arrayList.get(i).getNote()));
+            mEdit1.putString("Note_Time"+i, String.valueOf(arrayList.get(i).getTime()));
+
+            Log.e("TAG", "saveArray : ---------" + String.valueOf(arrayList.get(i).getNote()));
+            Log.e("TAG", "saveArray111111: ********" + arrayList.size());
         }
 
         mEdit1.apply();
@@ -92,23 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     public ArrayList<Notes> loadArray(Context mContext) {
-//        SharedPreferences mSharedPreference1 =   PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        ArrayList<Notes> notesArrayList =new ArrayList<>();
+
+        ArrayList<Notes> notesArrayList = new ArrayList<>();
         SharedPreferences mSharedPreference1 = getSharedPreferences("my_pref", MODE_PRIVATE);
         arrayList.clear();
         int size = mSharedPreference1.getInt("Status_size", 0);
 
         for (int i = 0; i < size; i++) {
-            String notes_mesg = mSharedPreference1.getString("Note_Message", null);
-            String notes_time = mSharedPreference1.getString("Note_Time", null);
+            String notes_mesg = mSharedPreference1.getString("Note_Message"+i, null);
+            String notes_time = mSharedPreference1.getString("Note_Time"+i, null);
 
-            Log.e("TAG", "loadArray: ---------"+notes_mesg+"--"+notes_time);
-            Log.e("TAG", "loadArray111111: ********"+notesArrayList.size() );
+            Log.e("TAG", "loadArray: ---------" + notes_mesg + "--" + notes_time);
+            Log.e("TAG", "loadArray111111: ********" + notesArrayList.size());
 
             notesArrayList.add(new Notes(notes_mesg, notes_time));
 
-            Log.e("TAG", "loadArray222222: ********"+notesArrayList.size() );
+            Log.e("TAG", "loadArray222222: ********" + notesArrayList.size());
         }
 
         return notesArrayList;
